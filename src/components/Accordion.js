@@ -5,32 +5,37 @@ import './Accordion.css';
 
 const Accordion = (props) => {
 
-    const [setActive, setActiveState] = useState('');
-    const [setHeight, setHeightState] = useState('0px');
-    const [setRotate, setRotateState] = useState('');
+    const [active, setActive] = useState('');
+    const [height, setHeight] = useState('0px');
+    const [rotate, setRotate] = useState('');
 
     const content = useRef('null');
 
     const toogleAccordion = () => {
-        setActiveState(setActive === '' ? 'active' : '');
-        setHeightState(
-            setActive === 'active'
+        setActive(active === '' ? 'active' : '');
+        setHeight(
+            active === 'active'
                 ? '0px'
                 : `${content.current.scrollHeight}px`
         );
-        setRotateState(
-            setActive === 'active'
+        setRotate(
+            active === 'active'
                 ? ''
                 : 'rotate'
         );  
     }
 
     return (
-        <div key={props.item.id} className="accordion-section">
+        <div key={props.item.question} className="accordion-section">
             <div className="title-wrapper" onClick={toogleAccordion}>
-                <p className="title">{props.item.title}</p>
+                <h3
+                    className="title"
+                    dangerouslySetInnerHTML={{
+                        __html: props.item.question
+                    }}
+                />
                 <Chevron
-                    className={`${setRotate}`}
+                    className={`${rotate}`}
                     width={24}
                     height={24}
                     fill="#000"
@@ -38,10 +43,14 @@ const Accordion = (props) => {
             </div>
             <div
                 ref={content}
-                style={{ maxHeight: `${setHeight}` }}
+                style={{ maxHeight: `${height}` }}
                 className="content"
             >
-                <div dangerouslySetInnerHTML={{ __html: props.item.content }} />
+                <div
+                    dangerouslySetInnerHTML={{
+                        __html: props.item.correct_answer
+                    }}
+                />
             </div>
         </div>
     );
