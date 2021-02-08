@@ -26,7 +26,7 @@ const Accordion = (props) => {
     }
 
     return (
-        <div key={props.item.question} className="accordion-section">
+        <div className="accordion-section">
             <div className="title-wrapper" onClick={toogleAccordion}>
                 <h3
                     className="title"
